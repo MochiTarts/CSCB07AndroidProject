@@ -1,0 +1,235 @@
+package com.b07.database.adapter;
+
+import com.b07.accounts.Account;
+import com.b07.exceptions.BuildTypeException;
+import com.b07.exceptions.DatabaseSelectHelperException;
+import com.b07.exceptions.ItemSetException;
+import com.b07.exceptions.Unauthenticated;
+import com.b07.exceptions.UserSetException;
+import com.b07.inventory.Inventory;
+import com.b07.inventory.Item;
+import com.b07.store.Sale;
+import com.b07.store.SalesLog;
+import com.b07.store.ShoppingCartInterface;
+import com.b07.users.Customer;
+import com.b07.users.User;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+
+public class DatabaseSelectAdapter {
+  private static DatabaseSelectInterface selector;
+  
+  public static void setSelector(DatabaseSelectInterface selector) {
+    if (selector != null) {
+      DatabaseSelectAdapter.selector = selector;
+    }
+  }
+  
+  public static List<Integer> getRoleIds() throws SQLException {
+    if (selector != null) {
+      return selector.getRoleIds();
+    } else {
+      return null;
+    }
+  }
+  
+  public static String getRoleName(int roleId) throws SQLException, DatabaseSelectHelperException {
+    if (selector != null) {
+      return selector.getRoleName(roleId);
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static int getUserRoleId(int userId) throws SQLException, DatabaseSelectHelperException {
+    if (selector != null) {
+      return selector.getUserRoleId(userId);
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static List<Integer> getUsersByRole(int roleId)
+      throws SQLException, DatabaseSelectHelperException {
+    if (selector != null) {
+      return selector.getUsersByRole(roleId);
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static List<User> getUsersDetails() throws SQLException,  
+      BuildTypeException, UserSetException, DatabaseSelectHelperException {
+    if (selector != null) {
+      return selector.getUsersDetails();
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static User getUserDetails(int userId)
+      throws SQLException, DatabaseSelectHelperException, BuildTypeException, 
+                           UserSetException {
+    if (selector != null) {
+      return selector.getUserDetails(userId);
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static String getPassword(int userId) throws SQLException, DatabaseSelectHelperException {
+    if (selector != null) {
+      return selector.getPassword(userId);
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static List<Item> getAllItems() throws SQLException, ItemSetException {
+    if (selector != null) {
+      return selector.getAllItems();
+    } else {
+      return null;
+    }
+  }
+  
+  public static Item getItem(int itemId)
+      throws SQLException, DatabaseSelectHelperException, ItemSetException {
+    if (selector != null) {
+      return selector.getItem(itemId);
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static Inventory getInventory()
+      throws SQLException, DatabaseSelectHelperException, ItemSetException {
+    if (selector != null) {
+      return selector.getInventory();
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static int getInventoryQuantity(int itemId)
+      throws SQLException, DatabaseSelectHelperException {
+    if (selector != null) {
+      return selector.getInventoryQuantity(itemId);
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static SalesLog getSales() throws SQLException, DatabaseSelectHelperException {
+    if (selector != null) {
+      return selector.getSales();
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static Sale getSaleById(int saleId)
+      throws SQLException, DatabaseSelectHelperException, BuildTypeException, UserSetException {
+    if (selector != null) {
+      return selector.getSaleById(saleId);
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static List<Sale> getSalesToUser(int userId)
+      throws SQLException, DatabaseSelectHelperException, BuildTypeException,
+      UserSetException {
+    if (selector != null) {
+      return selector.getSalesToUser(userId);
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static Sale getItemizedSaleById(int saleId)
+      throws SQLException, DatabaseSelectHelperException {
+    if (selector != null) {
+      return selector.getItemizedSaleById(saleId);
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static SalesLog getItemizedSales() throws SQLException, DatabaseSelectHelperException {
+    if (selector != null) {
+      return selector.getItemizedSales();
+    } else {
+      return null;
+    }
+  }
+  
+  public static SalesLog getCompleteSales() throws SQLException, DatabaseSelectHelperException {
+    if (selector != null) {
+      return selector.getCompleteSales();
+    } else {
+      return null;
+    }
+  }
+  
+  
+  public static List<Integer> getUserAccounts(int userId)
+      throws SQLException, DatabaseSelectHelperException {
+    if (selector != null) {
+      return selector.getUserAccounts(userId);
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static HashMap<Integer, Integer> getAccountDetails(int accountId)
+      throws SQLException, DatabaseSelectHelperException {
+    if (selector != null) {
+      return selector.getAccountDetails(accountId);
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static ShoppingCartInterface getShoppingCart(Customer user, int accountId)
+      throws SQLException, DatabaseSelectHelperException, Unauthenticated {
+    if (selector != null) {
+      return selector.getShoppingCart(user, accountId);
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static List<Integer> getUserActiveAccounts(int userId) throws DatabaseSelectHelperException {
+    if (selector != null) {
+      return selector.getUserActiveAccounts(userId);
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static List<Integer> getUserInactiveAccounts(int userId) throws DatabaseSelectHelperException {
+    if (selector != null) {
+      return selector.getUserInactiveAccounts(userId);
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static List<Account> getAccounts() throws DatabaseSelectHelperException {
+    if (selector != null) {
+      return selector.getAccounts();
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+  
+  public static HashMap<Integer, String> getPasswords() throws DatabaseSelectHelperException {
+    if (selector != null) {
+      return selector.getPasswords();
+    } else {
+      throw new DatabaseSelectHelperException("There is no selector.");
+    }
+  }
+}

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/light_background"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_height="80dp"
+        android:layout_width="match_parent"
+        android:id="@+id/header"
+        android:layout_alignParentTop="true"
+        android:background="@color/dark_text"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:background="@color/dark_text"
+            android:layout_marginStart="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_chevron_left_black_24dp"
+            android:tint="@color/light_text"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/shopping_cart"
+            android:textSize="35dp"
+            android:paddingStart="25dp"
+            android:layout_marginStart="70dp"
+            android:textColor="@color/light_text"
+            android:gravity="center_vertical"
+            android:textAlignment="gravity"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="100dp"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:paddingBottom="40dp"
+            android:columnCount="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:gravity="center_vertical"
+                android:text="@string/total_items"
+                android:textSize="25dp"
+                android:drawableStart="@drawable/shopping_cart"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:drawablePadding="20dp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bubble"
+                android:layout_columnWeight="1"
+                android:gravity="center_vertical"
+                android:layout_gravity="fill_horizontal"
+                android:text="@string/fishing_rod_purchase"
+                android:textAlignment="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/light_text"
+                android:lineHeight="20dp"
+                android:padding="20dp"
+                android:drawableStart="@drawable/image_placeholder"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bubble"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:layout_gravity="fill_horizontal"
+                android:text="@string/hockey_stick_purchase"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/light_text"
+                android:lineHeight="20dp"
+                android:padding="20dp"
+                android:drawableStart="@drawable/image_placeholder"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bubble"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:layout_gravity="fill_horizontal"
+                android:text="@string/skates_purchase"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/light_text"
+                android:lineHeight="20dp"
+                android:padding="20dp"
+                android:drawableStart="@drawable/image_placeholder"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bubble"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:layout_gravity="fill_horizontal"
+                android:text="@string/running_shoes_purchase"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/light_text"
+                android:lineHeight="20dp"
+                android:padding="20dp"
+                android:drawableStart="@drawable/image_placeholder"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bubble"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:layout_gravity="fill_horizontal"
+                android:text="@string/protein_bar_purchase"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/light_text"
+                android:lineHeight="20dp"
+                android:padding="20dp"
+                android:drawableStart="@drawable/image_placeholder"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bubble"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:layout_gravity="fill_horizontal"
+                android:text="@string/protein_bar"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/light_text"
+                android:lineHeight="20dp"
+                android:padding="20dp"
+                android:drawableStart="@drawable/image_placeholder"/>
+
+
+
+        </GridLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:columnCount="2">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="75dp"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:text="@string/total"
+                android:textSize="25dp"
+                android:layout_margin="10dp"
+                android:textColor="@color/dark_text"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="75dp"
+                android:background="@drawable/bubble_dark"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:text="@string/Checkout"
+                android:textSize="25dp"
+                android:layout_margin="10dp"
+                android:textColor="@color/light_text"/>
+
+        </GridLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

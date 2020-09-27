@@ -1,0 +1,41 @@
+package com.example.salesapplication;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+class AddItemController implements View.OnClickListener {
+
+    private Context appContext;
+    private ShoppingCartObject cart = com.example.salesapplication.ShoppingCartObject.getInstance();
+
+    public AddItemController(Context context) {
+        this.appContext = context;
+    }
+
+    @Override
+    public void onClick(View v) {
+        cart.incrementTotal_items();
+        UpdateItemBadge();
+        Log.d("Total items:", "" + cart.getTotal_items());
+    }
+
+    public void UpdateItemBadge() {
+
+        if (cart.getTotal_items() == 0) {
+            TextView item_count = ((Activity) this.appContext).findViewById(R.id.item_count);
+            item_count.setVisibility(TextView.GONE);
+        } else {
+            TextView item_count = ((Activity) this.appContext).findViewById(R.id.item_count);
+            item_count.setVisibility(TextView.VISIBLE);
+            item_count.setText(""+ cart.getTotal_items());
+        }
+
+    }
+
+}

@@ -1,0 +1,7 @@
+#Sat Nov 30 23:59:16 EST 2019
+base.0=C\:\\Users\\jenny\\OneDrive\\Documents\\project_phase3\\branch\\Android_App\\JennyViews\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\out\\classes.dex
+path.1=classes.dex
+renamed.1=classes2.dex
+path.0=classes.dex
+renamed.0=classes.dex
+base.1=C\:\\Users\\jenny\\OneDrive\\Documents\\project_phase3\\branch\\Android_App\\JennyViews\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\out\\classes.dex

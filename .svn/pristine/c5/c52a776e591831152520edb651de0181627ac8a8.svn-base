@@ -1,0 +1,141 @@
+package com.example.salesapplication;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
+import java.math.BigDecimal;
+
+class ShoppingCartController implements View.OnClickListener {
+
+    private Context appContext;
+    private ShoppingCartObject cart = com.example.salesapplication.ShoppingCartObject.getInstance();
+
+    public ShoppingCartController(Context context) {
+        this.appContext = context;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (!(this.appContext instanceof ShoppingCartActivity)) {
+            Intent i = new Intent(this.appContext, ShoppingCartActivity.class);
+            i.putExtra("total_items", cart.getTotal_items());
+            appContext.startActivity(i);
+        } else {
+
+            if (v.getId() == R.id.add_fishing_rod) {
+                cart.incrementTotal_items();
+
+                TextView fishingRodTotal =
+                        ((Activity) this.appContext).findViewById(R.id.fishing_rod_name);
+                fishingRodTotal.setText(((Activity) this.appContext).getResources().getString(R.string.fishing_rod_purchase) + "\n" + "x" + cart.getTotal_items());
+
+            } else if (v.getId() == R.id.remove_fishing_rod) {
+                cart.removeTotal_items();
+
+                if (cart.getTotal_items() > 0) {
+                    TextView itemTotal =
+                            ((Activity) this.appContext).findViewById(R.id.fishing_rod_name);
+                    itemTotal.setText(((Activity) this.appContext).getResources().getString(R.string.fishing_rod_purchase) + "\n" + "x" + cart.getTotal_items());
+                } else {
+                    TextView itemTotal =
+                            ((Activity) this.appContext).findViewById(R.id.fishing_rod_name);
+                    itemTotal.setText(((Activity) this.appContext).getResources().getString(R.string.fishing_rod_purchase));
+                }
+
+            } else if (v.getId() == R.id.add_hockey_stick) {
+                cart.incrementTotal_items();
+
+                TextView itemTotal =
+                        ((Activity) this.appContext).findViewById(R.id.hockey_stick_name);
+                itemTotal.setText(((Activity) this.appContext).getResources().getString(R.string.hockey_stick_purchase) + "\n" + "x" + cart.getTotal_items());
+
+            } else if (v.getId() == R.id.remove_hockey_stick) {
+                cart.removeTotal_items();
+
+                if (cart.getTotal_items() > 0) {
+                    TextView itemTotal =
+                            ((Activity) this.appContext).findViewById(R.id.hockey_stick_name);
+                    itemTotal.setText(((Activity) this.appContext).getResources().getString(R.string.hockey_stick_purchase) + "\n" + "x" + cart.getTotal_items());
+                } else {
+                    TextView itemTotal =
+                            ((Activity) this.appContext).findViewById(R.id.hockey_stick_name);
+                    itemTotal.setText(((Activity) this.appContext).getResources().getString(R.string.hockey_stick_purchase));
+                }
+
+            } else if (v.getId() == R.id.add_skates) {
+                cart.incrementTotal_items();
+
+                TextView itemTotal =
+                        ((Activity) this.appContext).findViewById(R.id.skates_name);
+                itemTotal.setText(((Activity) this.appContext).getResources().getString(R.string.skates_purchase) + "\n" + "x" + cart.getTotal_items());
+
+            } else if (v.getId() == R.id.remove_skates) {
+                cart.removeTotal_items();
+
+                if (cart.getTotal_items() > 0) {
+                    TextView itemTotal =
+                            ((Activity) this.appContext).findViewById(R.id.skates_name);
+                    itemTotal.setText(((Activity) this.appContext).getResources().getString(R.string.skates_purchase) + "\n" + "x" + cart.getTotal_items());
+                } else {
+                    TextView itemTotal =
+                            ((Activity) this.appContext).findViewById(R.id.skates_name);
+                    itemTotal.setText(((Activity) this.appContext).getResources().getString(R.string.skates_purchase));
+                }
+
+            } else if (v.getId() == R.id.add_running_shoes) {
+                cart.incrementTotal_items();
+
+                TextView itemTotal =
+                        ((Activity) this.appContext).findViewById(R.id.running_shoes_name);
+                itemTotal.setText(((Activity) this.appContext).getResources().getString(R.string.running_shoes_purchase) + "\n" + "x" + cart.getTotal_items());
+
+            } else if (v.getId() == R.id.remove_running_shoes) {
+                cart.removeTotal_items();
+
+                if (cart.getTotal_items() > 0) {
+                    TextView itemTotal =
+                            ((Activity) this.appContext).findViewById(R.id.running_shoes_name);
+                    itemTotal.setText(((Activity) this.appContext).getResources().getString(R.string.running_shoes_purchase) + "\n" + "x" + cart.getTotal_items());
+                } else {
+                    TextView itemTotal =
+                            ((Activity) this.appContext).findViewById(R.id.running_shoes_name);
+                    itemTotal.setText(((Activity) this.appContext).getResources().getString(R.string.running_shoes_purchase));
+                }
+
+            } else if (v.getId() == R.id.add_protein_bar) {
+                cart.incrementTotal_items();
+
+                TextView itemTotal =
+                        ((Activity) this.appContext).findViewById(R.id.protein_bar_name);
+                itemTotal.setText(((Activity) this.appContext).getResources().getString(R.string.protein_bar_purchase) + "\n" + "x" + cart.getTotal_items());
+
+            } else if (v.getId() == R.id.remove_protein_bar) {
+                cart.removeTotal_items();
+
+                if (cart.getTotal_items() > 0) {
+                    TextView itemTotal =
+                            ((Activity) this.appContext).findViewById(R.id.protein_bar_name);
+                    itemTotal.setText(((Activity) this.appContext).getResources().getString(R.string.protein_bar_purchase) + "\n" + "x" + cart.getTotal_items());
+                } else {
+                    TextView itemTotal =
+                            ((Activity) this.appContext).findViewById(R.id.protein_bar_name);
+                    itemTotal.setText(((Activity) this.appContext).getResources().getString(R.string.protein_bar_purchase));
+                }
+
+            }
+
+            TextView total = ((Activity) this.appContext).findViewById(R.id.total_items);
+            total.setText(((Activity) this.appContext).getResources().getString(R.string.total_items) + ": " + cart.getTotal_items());
+
+            BigDecimal currentSubTotal =
+                    new BigDecimal(12).multiply(new BigDecimal(cart.getTotal_items()));
+            TextView subtotal = ((Activity) this.appContext).findViewById(R.id.subtotal);
+            subtotal.setText("$" + currentSubTotal.setScale(2, BigDecimal.ROUND_HALF_EVEN));
+
+        }
+    }
+}

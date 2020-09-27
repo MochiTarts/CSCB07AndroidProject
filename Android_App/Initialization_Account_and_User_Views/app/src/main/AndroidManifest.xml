@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.salesapplication">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".SalesHistory"
+            android:label="@string/title_activity_sales_history"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".RestockItems"
+            android:label="@string/title_activity_restock_items"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CreateNewCustomer"
+            android:label="@string/title_activity_create_new_customer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CreateNewUser"
+            android:label="@string/title_activity_create_new_user"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EmployeeOptions"
+            android:label="@string/title_activity_employee_options"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AdminOptions"
+            android:label="@string/title_activity_admin_options"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PromoteEmployee"
+            android:label="@string/title_activity_promote_employee"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".employee_initilization"
+            android:label="@string/title_activity_employee_initilization"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".admin_initiation"
+            android:label="@string/title_activity_admin_initiation"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

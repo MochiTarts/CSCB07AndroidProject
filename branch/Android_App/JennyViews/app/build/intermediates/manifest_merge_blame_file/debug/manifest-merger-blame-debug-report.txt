@@ -1,0 +1,162 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.testingandroidstudio"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="25"
+8-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml
+10
+11    <application
+11-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:5:5-71:19
+12        android:allowBackup="true"
+12-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:6:9-35
+13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+13-->[androidx.core:core:1.0.1] C:\Users\jenny\.gradle\caches\transforms-2\files-2.1\c0a39027978b83a483a047f5c31d0c4e\core-1.0.1\AndroidManifest.xml:22:18-86
+14        android:debuggable="true"
+15        android:icon="@mipmap/ic_launcher"
+15-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:7:9-43
+16        android:label="@string/app_name"
+16-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:8:9-41
+17        android:roundIcon="@mipmap/ic_launcher_round"
+17-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:9:9-54
+18        android:supportsRtl="true"
+18-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:10:9-35
+19        android:testOnly="true"
+20        android:theme="@style/AppTheme" >
+20-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:11:9-40
+21        <activity android:name="com.example.salesapplication.MainActivity" >
+21-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:12:9-18:20
+21-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:12:19-47
+22            <intent-filter>
+22-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:13:13-17:29
+23                <action android:name="android.intent.action.MAIN" />
+23-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:14:17-69
+23-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:14:25-66
+24
+25                <category android:name="android.intent.category.LAUNCHER" />
+25-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:16:17-77
+25-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:16:27-74
+26            </intent-filter>
+27        </activity>
+28        <activity
+28-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:19:9-22:59
+29            android:name="com.example.salesapplication.SalesHistory"
+29-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:20:13-41
+30            android:label="@string/title_activity_sales_history"
+30-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:21:13-65
+31            android:theme="@style/AppTheme.NoActionBar" />
+31-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:22:13-56
+32        <activity
+32-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:23:9-26:59
+33            android:name="com.example.salesapplication.RestockItems"
+33-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:24:13-41
+34            android:label="@string/title_activity_restock_items"
+34-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:25:13-65
+35            android:theme="@style/AppTheme.NoActionBar" />
+35-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:26:13-56
+36        <activity
+36-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:27:9-30:59
+37            android:name="com.example.salesapplication.CreateNewCustomer"
+37-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:28:13-46
+38            android:label="@string/title_activity_create_new_customer"
+38-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:29:13-71
+39            android:theme="@style/AppTheme.NoActionBar" />
+39-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:30:13-56
+40        <activity
+40-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:31:9-34:59
+41            android:name="com.example.salesapplication.CreateNewUser"
+41-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:32:13-42
+42            android:label="@string/title_activity_create_new_user"
+42-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:33:13-67
+43            android:theme="@style/AppTheme.NoActionBar" />
+43-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:34:13-56
+44        <activity
+44-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:35:9-38:59
+45            android:name="com.example.salesapplication.EmployeeOptions"
+45-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:36:13-44
+46            android:label="@string/title_activity_employee_options"
+46-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:37:13-68
+47            android:theme="@style/AppTheme.NoActionBar" />
+47-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:38:13-56
+48        <activity
+48-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:39:9-42:59
+49            android:name="com.example.salesapplication.AdminOptions"
+49-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:40:13-41
+50            android:label="@string/title_activity_admin_options"
+50-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:41:13-65
+51            android:theme="@style/AppTheme.NoActionBar" />
+51-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:42:13-56
+52        <activity
+52-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:43:9-46:59
+53            android:name="com.example.salesapplication.PromoteEmployee"
+53-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:44:13-44
+54            android:label="@string/title_activity_promote_employee"
+54-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:45:13-68
+55            android:theme="@style/AppTheme.NoActionBar" />
+55-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:46:13-56
+56        <activity
+56-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:47:9-50:59
+57            android:name="com.example.salesapplication.employee_initilization"
+57-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:48:13-51
+58            android:label="@string/title_activity_employee_initilization"
+58-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:49:13-74
+59            android:theme="@style/AppTheme.NoActionBar" />
+59-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:50:13-56
+60        <activity
+60-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:51:9-54:59
+61            android:name="com.example.salesapplication.admin_initiation"
+61-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:52:13-45
+62            android:label="@string/title_activity_admin_initiation"
+62-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:53:13-68
+63            android:theme="@style/AppTheme.NoActionBar" />
+63-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:54:13-56
+64        <activity
+64-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:55:9-58:59
+65            android:name="com.example.salesapplication.LoginScreen"
+65-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:56:13-40
+66            android:label="@string/title_activity_login_screen"
+66-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:57:13-64
+67            android:theme="@style/AppTheme.NoActionBar" />
+67-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:58:13-56
+68        <activity
+68-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:59:9-62:59
+69            android:name="com.example.salesapplication.UserStore"
+69-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:60:13-38
+70            android:label="@string/title_activity_userstore"
+70-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:61:13-61
+71            android:theme="@style/AppTheme.NoActionBar" />
+71-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:62:13-56
+72        <activity
+72-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:63:9-66:59
+73            android:name="com.example.salesapplication.ShoppingCartActivity"
+73-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:64:13-49
+74            android:label="@string/title_activity_shoppingcart"
+74-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:65:13-64
+75            android:theme="@style/AppTheme.NoActionBar" />
+75-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:66:13-56
+76        <activity
+76-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:67:9-70:59
+77            android:name="com.example.salesapplication.CheckOut"
+77-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:68:13-37
+78            android:label="@string/title_activity_checkout"
+78-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:69:13-60
+79            android:theme="@style/AppTheme.NoActionBar" />
+79-->C:\Users\jenny\OneDrive\Documents\project_phase3\branch\Android_App\JennyViews\app\src\main\AndroidManifest.xml:70:13-56
+80
+81        <provider
+81-->[androidx.lifecycle:lifecycle-process:2.0.0] C:\Users\jenny\.gradle\caches\transforms-2\files-2.1\b3c088406576b03c69a90621925ddf75\lifecycle-process-2.0.0\AndroidManifest.xml:23:9-27:43
+82            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+82-->[androidx.lifecycle:lifecycle-process:2.0.0] C:\Users\jenny\.gradle\caches\transforms-2\files-2.1\b3c088406576b03c69a90621925ddf75\lifecycle-process-2.0.0\AndroidManifest.xml:24:13-79
+83            android:authorities="com.example.testingandroidstudio.lifecycle-process"
+83-->[androidx.lifecycle:lifecycle-process:2.0.0] C:\Users\jenny\.gradle\caches\transforms-2\files-2.1\b3c088406576b03c69a90621925ddf75\lifecycle-process-2.0.0\AndroidManifest.xml:25:13-69
+84            android:exported="false"
+84-->[androidx.lifecycle:lifecycle-process:2.0.0] C:\Users\jenny\.gradle\caches\transforms-2\files-2.1\b3c088406576b03c69a90621925ddf75\lifecycle-process-2.0.0\AndroidManifest.xml:26:13-37
+85            android:multiprocess="true" />
+85-->[androidx.lifecycle:lifecycle-process:2.0.0] C:\Users\jenny\.gradle\caches\transforms-2\files-2.1\b3c088406576b03c69a90621925ddf75\lifecycle-process-2.0.0\AndroidManifest.xml:27:13-40
+86    </application>
+87
+88</manifest>

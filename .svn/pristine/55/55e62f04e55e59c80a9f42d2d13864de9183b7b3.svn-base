@@ -1,0 +1,5 @@
+package com.b07.exceptions;
+
+public class PasswordUnMatchException extends Exception {
+
+}

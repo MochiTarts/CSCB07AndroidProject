@@ -1,0 +1,611 @@
+package com.b07.database.helper;
+
+import com.b07.database.DatabaseInserter;
+import com.b07.database.DatabaseSelector;
+import com.b07.database.adapter.DatabaseInsertInterface;
+import com.b07.database.helper.DatabaseDriverHelper;
+import com.b07.exceptions.DatabaseIllegalInsert;
+import com.b07.exceptions.DatabaseInsertException;
+import com.b07.exceptions.DatabaseInsertHelperException;
+import com.b07.exceptions.DatabaseSelectHelperException;
+import com.b07.inventory.Item;
+import com.b07.security.PasswordHelpers;
+import com.b07.store.ShoppingCartQuantityManager;
+import com.b07.users.Roles;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class DatabaseInsertHelper extends DatabaseInserter implements DatabaseInsertInterface {
+  
+  /**
+   * Inserts a new role into the database, assigning it an auto-incrementing Id.
+   * @param name The name of the role. Must be from the Roles enum.
+   * @return the id of the new role.
+   * @throws DatabaseInsertException if the role cannot be inserted due to database failure.
+   * @throws SQLException if a generic database issue occurs.
+   * @throws DatabaseInsertHelperException if the name is not valid or already in the database.
+   * @throws DatabaseSelectHelperException if the roles table cannot be accessed.
+   */
+  @Override
+  public int insertRole(String name)
+      throws DatabaseInsertException, SQLException, DatabaseInsertHelperException,
+          DatabaseSelectHelperException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    try {
+      List<String> validRoles = new ArrayList<String>();
+      
+      for (Roles role : Roles.values()) {
+        validRoles.add(role.toString());
+      }
+      
+      if (!validRoles.contains(name)) {
+        throw new DatabaseIllegalInsert("Not a valid role");
+      }
+
+      List<String> allRoles = new ArrayList<>();
+      List<Integer> roleIdsList = (new DatabaseSelectHelper()).getRoleIds();
+      for (int i = 0; i < roleIdsList.size(); i++) {
+        allRoles.add((new DatabaseSelectHelper()).getRoleName(roleIdsList.get(i)));
+      }
+      if (allRoles.contains(name)) {
+        throw new DatabaseIllegalInsert("Already in database");
+      }
+
+    } catch (DatabaseIllegalInsert e) {
+      connection.close();
+      System.out.println(e.getMessage());
+      throw new DatabaseInsertHelperException("Failed to insert role");
+    }
+    int roleId = DatabaseInserter.insertRole(name, connection);
+    connection.close();
+    return roleId;
+  }
+  
+  /**
+   * Inserts a User into the database, assigning it an auto-incrementing id.
+   * @param name The name of the user.
+   * @param age The age of the user, must be greater than zero.
+   * @param address The address of the user, can be 100 characters maximum.
+   * @param password The password of the user.
+   * @return the new userId
+   * @throws DatabaseInsertException if the role cannot be inserted due to database failure.
+   * @throws SQLException if a generic database issue occurs.
+   * @throws DatabaseInsertHelperException If any input is invalid.
+   */
+  @Override
+  public int insertNewUser(String name, int age, String address, String password)
+      throws DatabaseInsertException, SQLException, DatabaseInsertHelperException {
+    // TODO Implement this method as stated on the assignment sheet
+    // hint: You should be using these three lines in your final code
+    try {
+      if (name == null || name.trim().equals("")) {
+        throw new DatabaseIllegalInsert("Name cannot be empty or null");
+      }
+      if (address == null || address.trim().equals("")) {
+        throw new DatabaseIllegalInsert("Address cannot be empty or null");
+      }
+      if (address.trim().length() > 100) {
+        throw new DatabaseIllegalInsert("Address cannot exceed 100 characters");
+      }
+      if (password == null || password.trim().equals("")) {
+        throw new DatabaseIllegalInsert("Password cannot be empty or null");
+      }
+      if (age < 0) {
+        throw new DatabaseIllegalInsert("Age must be 0 or greater");
+      }
+    } catch (DatabaseIllegalInsert e) {
+      System.out.println(e.getMessage());
+      throw new DatabaseInsertHelperException("Failed to insert new user");
+    }
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    int userId = DatabaseInserter.insertNewUser(name, age, address, password, connection);
+    connection.close();
+    return userId;
+  }
+  
+  /**
+   * Inserts a User into the database, assigning it an auto-incrementing id, with the option
+   * to specify that the password is already hashed.
+   * 
+   * @param name The name of the user.
+   * @param age The age of the user, must be greater than zero.
+   * @param address The address of the user, can be 100 characters maximum.
+   * @param password The password of the user.
+   * @param passwordHashed true if the password is already hashed, false otherwise.
+   * @return the new userId
+   * @throws DatabaseInsertException if the role cannot be inserted due to database failure.
+   * @throws SQLException if a generic database issue occurs.
+   * @throws DatabaseInsertHelperException If any input is invalid.
+   */
+  public int insertNewUser(String name, int age, String address, String password,
+      boolean passwordHashed) throws DatabaseInsertException, SQLException,
+          DatabaseInsertHelperException {
+    try {
+      if (name == null || name.trim().equals("")) {
+        throw new DatabaseIllegalInsert("Name cannot be empty or null");
+      }
+      if (address == null || address.trim().equals("")) {
+        throw new DatabaseIllegalInsert("Address cannot be empty or null");
+      }
+      if (address.trim().length() > 100) {
+        throw new DatabaseIllegalInsert("Address cannot exceed 100 characters");
+      }
+      if (password == null || password.trim().equals("")) {
+        throw new DatabaseIllegalInsert("Password cannot be empty or null");
+      }
+      if (age < 0) {
+        throw new DatabaseIllegalInsert("Age must be 0 or greater");
+      }
+    } catch (DatabaseIllegalInsert e) {
+      System.out.println(e.getMessage());
+      throw new DatabaseInsertHelperException("Failed to insert new user");
+    }
+    
+    if (!passwordHashed) {
+      return this.insertNewUser(name, age, address, password);
+    } else {
+      Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+      int userId = this.insertUser(name, age, address, connection);
+      this.insertHashedPassword(password, userId, connection);
+      connection.close();
+      return userId;
+    }
+  }
+  
+  /**
+   * Assigns a new role to a user in the database.
+   * @param userId A valid userId in the database.
+   * @param roleId A valid roleId in the database.
+   * @return the new roleId
+   * @throws DatabaseInsertException if the role cannot be inserted due to database failure.
+   * @throws SQLException if a generic database issue occurs.
+   * @throws DatabaseInsertHelperException If any input is invalid.
+   */
+  @Override
+  public int insertUserRole(int userId, int roleId)
+      throws DatabaseInsertException, SQLException,
+          DatabaseInsertHelperException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    try {
+      ResultSet checkresults = getUserDetails(userId, connection);
+      if (!checkresults.next()) {
+        checkresults.close();
+        throw new DatabaseIllegalInsert("The entered userId does not exist");
+      }
+      ResultSet roles = getRoles(connection);
+      List<Integer> roleIds = new ArrayList<Integer>();
+      while (roles.next()) {
+        roleIds.add(roles.getInt("ID"));
+      }
+      if (!roleIds.contains(roleId)) {
+        roles.close();
+        throw new DatabaseIllegalInsert("This roleId does not exist");
+      }
+
+      ResultSet checkUserRoleTable = getUsersByRole(roleId, connection);
+      List<Integer> existingUsers = new ArrayList<>();
+      while (checkUserRoleTable.next()) {
+        existingUsers.add(checkUserRoleTable.getInt("USERID"));
+      }
+      if (existingUsers.contains(userId)) {
+        checkUserRoleTable.close();
+        throw new DatabaseIllegalInsert("This user already has a role. Please use update method");
+      }
+
+      checkresults.close();
+      roles.close();
+      checkUserRoleTable.close();
+    } catch (DatabaseIllegalInsert | SQLException e) {
+      System.out.println(e.getMessage());
+      connection.close();
+      throw new DatabaseInsertHelperException("Failed to insert user role");
+    }
+    int userRoleId = DatabaseInserter.insertUserRole(userId, roleId, connection);
+    connection.close();
+    return userRoleId;
+  }
+  
+  /**
+   * Inserts a new item into the database.
+   * @param name The name of the item from the ItemTypes enum.
+   * @param price The price of the item, must be greater than zero.
+   * @return the new id of the item
+   * @throws DatabaseInsertException if the item cannot be inserted due to database failure.
+   * @throws SQLException if a generic database issue occurs.
+   * @throws DatabaseInsertHelperException If any input is invalid.
+   */
+  @Override
+  public int insertItem(String name, BigDecimal price)
+      throws DatabaseInsertException, SQLException, DatabaseInsertHelperException {
+    // TODO Implement this method as stated on the assignment sheet
+    // hint: You should be using these three lines in your final code
+    try {
+      if (name == null) {
+        throw new DatabaseIllegalInsert("Name cannot be null");
+      }
+      if (name.length() >= 64) {
+        throw new DatabaseIllegalInsert("Name must be less than 64 characters");
+      }
+      if (price.compareTo(new BigDecimal("0.00")) == -1) {
+        throw new DatabaseIllegalInsert("Price must be greater than 0");
+      }
+      if (price.compareTo(new BigDecimal("0.00")) == 0) {
+        throw new DatabaseIllegalInsert("Price must be greater than 0");
+      }
+    } catch (DatabaseIllegalInsert e) {
+      System.out.println(e.getMessage());
+      throw new DatabaseInsertHelperException("Failed to insert item");
+    }
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    price = price.setScale(2, RoundingMode.UP);
+    int itemId = DatabaseInserter.insertItem(name, price, connection);
+    connection.close();
+    return itemId;
+  }
+  
+  /**
+   * Adds an item to the store inventory.
+   * @param itemId the itemId to be added to the inventory, the id must be in the database already.
+   * @param quantity the amount of the item in stock.
+   * @return the id of the new inventory.
+   * @throws DatabaseInsertException if the inventory cannot be inserted due to database failure.
+   * @throws SQLException if a generic database issue occurs.
+   * @throws DatabaseInsertHelperException If any input is invalid.
+   */
+  @Override
+  public int insertInventory(int itemId, int quantity)
+      throws DatabaseInsertException, SQLException,
+      DatabaseInsertHelperException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    try {
+      ResultSet checkresults = getItem(itemId, connection);
+      if (!checkresults.next()) {
+        checkresults.close();
+        throw new DatabaseIllegalInsert("The entered itemId does not exist");
+      }
+      if (quantity < 0) {
+        throw new DatabaseIllegalInsert("Quantity must be 0 or greater");
+      }
+      checkresults.close();
+    } catch (DatabaseIllegalInsert | SQLException e) {
+      connection.close();
+      System.out.println(e.getMessage());
+      throw new DatabaseInsertHelperException("Failed to insert inventory");
+    }
+    int inventoryId = DatabaseInserter.insertInventory(itemId, quantity, connection);
+    connection.close();
+    return inventoryId;
+  }
+  
+  /**
+   * Inserts a new sale into the database.
+   * @param userId the user who made the purchase, must be an id already in the database.
+   * @param totalPrice the total value of the sale.
+   * @return the new saleId
+   * @throws DatabaseInsertException if the sale cannot be inserted due to database failure.
+   * @throws SQLException if a generic database issue occurs.
+   * @throws DatabaseInsertHelperException If any input is invalid.
+   */
+  @Override
+  public int insertSale(int userId, BigDecimal totalPrice)
+      throws DatabaseInsertException, SQLException, DatabaseInsertHelperException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    try {
+
+      ResultSet checkUserId = getUserDetails(userId, connection);
+      if (!checkUserId.next()) {
+        checkUserId.close();
+        throw new DatabaseIllegalInsert("The entered userId does not exist in database");
+      }
+
+    } catch (DatabaseIllegalInsert e) {
+      connection.close();
+      System.out.println(e.getMessage());
+      throw new DatabaseInsertHelperException("Failed to insert sale");
+    }
+    int saleId = DatabaseInserter.insertSale(userId, totalPrice, connection);
+    connection.close();
+    return saleId;
+  }
+  
+  /**
+   * Adds an itemized sale (stores the quantity of items sold) to the database.
+   * @param saleId the id of the sale this belonged to, must be in the database already.
+   * @param itemId the id of the item to be added.
+   * @param quantity the amount of the given item to be added.
+   * @return the new Id of the itemizedSale.
+   * @throws DatabaseInsertException if the itemized sale cannot be inserted due 
+   *        to database failure.
+   * @throws SQLException if a generic database issue occurs.
+   * @throws DatabaseInsertHelperException If any input is invalid.
+   */
+  @Override
+  public int insertItemizedSale(int saleId, int itemId, int quantity)
+      throws DatabaseInsertException, SQLException, DatabaseInsertHelperException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+
+    try {
+      ResultSet checkSaleId = getSaleById(saleId, connection);
+      if (!checkSaleId.next()) {
+        checkSaleId.close();
+        throw new DatabaseIllegalInsert("The entered saleId does not exist in database");
+      }
+
+      ResultSet checkItemId = getItem(itemId, connection);
+      if (!checkItemId.next()) {
+        checkItemId.close();
+        throw new DatabaseIllegalInsert("The entered itemId does not exist in database");
+      }
+
+    } catch (DatabaseIllegalInsert e) {
+      System.out.println(e.getMessage());
+      connection.close();
+      throw new DatabaseInsertHelperException("Failed to insert itemized sale");
+    }
+
+    int itemizedId = DatabaseInserter.insertItemizedSale(saleId, itemId, quantity, connection);
+    connection.close();
+    return itemizedId;
+  }
+  
+  /**
+   * Inserts a new user account into the database.
+   * @param userId the id of the user this account belongs to, must be in the database already.
+   * @return the id of the new account.
+   * @throws DatabaseInsertException if the account cannot be inserted due 
+   *         to database failure.
+   * @throws SQLException if a generic database issue occurs.
+   * @throws DatabaseInsertHelperException If any input is invalid.
+   */
+  @Deprecated
+  public static int insertAccount(int userId)
+      throws DatabaseInsertException, SQLException,
+          DatabaseInsertHelperException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    try {
+      ResultSet checkresults = getUserDetails(userId, connection);
+      if (!checkresults.next()) {
+        checkresults.close();
+        throw new DatabaseIllegalInsert("The entered userId does not exist");
+      }
+
+    } catch (DatabaseIllegalInsert e) {
+      connection.close();
+      System.out.println(e.getMessage());
+      throw new DatabaseInsertHelperException("Failed to insert Account");
+    }
+    int accountId = DatabaseInserter.insertAccount(userId, connection);
+    connection.close();
+    return accountId;
+  }
+  
+  /**
+   * Inserts a new active or inactive user account into the database.
+   * @param userId the id of the user this account belongs to, must be in the database already.
+   * @return the id of the new account.
+   * @throws DatabaseInsertException if the account cannot be inserted due 
+   *         to database failure.
+   * @throws SQLException if a generic database issue occurs.
+   * @throws DatabaseInsertHelperException If any input is invalid.
+   */
+  @Override
+  public int insertAccount(int userId, boolean active)
+      throws DatabaseInsertException, SQLException,
+          DatabaseInsertHelperException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    try {
+      ResultSet checkresults = getUserDetails(userId, connection);
+      if (!checkresults.next()) {
+        checkresults.close();
+        throw new DatabaseIllegalInsert("The entered userId does not exist");
+      }
+
+    } catch (DatabaseIllegalInsert e) {
+      connection.close();
+      System.out.println(e.getMessage());
+      throw new DatabaseInsertHelperException("Failed to insert Account");
+    }
+    int accountId = DatabaseInserter.insertAccount(userId, active, connection);
+    connection.close();
+    return accountId;
+  }
+
+  /**
+   * Inserts an item attached to a users account into the database.
+   * @param accountId the id of the account to add to, must already be in the database.
+   * @param itemId the id of the item to add, must already be in the database.
+   * @param quantity the amount of the given item to add, must be greater than zero.
+   * @return the id of the new account line.
+   * @throws DatabaseInsertException if the account line cannot be inserted due 
+   *         to database failure.
+   * @throws SQLException if a generic database issue occurs.
+   * @throws DatabaseInsertHelperException If any input is invalid.
+   */
+  @Override
+  public int insertAccountLine(int accountId, int itemId, int quantity)
+      throws DatabaseInsertException, SQLException, DatabaseInsertHelperException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    try {
+      ResultSet checkResults = getItem(itemId, connection);
+      if (!checkResults.next()) {
+        checkResults.close();
+        throw new DatabaseIllegalInsert("The entered itemId does not exist");
+      }
+      if (quantity < 0) {
+        throw new DatabaseIllegalInsert("Quantity must be 0 or greater");
+      }
+      
+      checkResults.close();
+      ResultSet checkAccountId = getAccountId(accountId, connection);
+      if (!checkAccountId.next()) {
+        checkAccountId.close();
+        throw new DatabaseIllegalInsert("The entered accountId does not exist");
+      }
+      checkAccountId.close();
+    } catch (DatabaseIllegalInsert e) {
+      connection.close();
+      System.out.println(e.getMessage());
+      throw new DatabaseInsertHelperException("Failed to insert AccountLine");
+    }
+
+    int accountLineId = DatabaseInserter.insertAccountLine(accountId, itemId, quantity, connection);
+    connection.close();
+    return accountLineId;
+  }
+  
+  /**
+   * Inserts a shopping cart's contents into the database so they can be retrieved later.
+   * @param cart the shopping cart to be stored.
+   * @param accountId the id of the account to add the items to, must already be in the database.
+   * @param userId the id of the user the cart belongs to, must be in the database already.
+   * @throws DatabaseInsertException if the cart cannot be inserted due 
+   *         to database failure.
+   * @throws SQLException if a generic database issue occurs.
+   * @throws DatabaseInsertHelperException If any input is invalid.
+   */
+  @Override
+  public void insertShoppingCart(ShoppingCartQuantityManager cart, int accountId,
+                                          int userId) 
+        throws DatabaseInsertException, SQLException, DatabaseInsertHelperException {
+    if (cart == null) {
+      throw new DatabaseInsertHelperException("The Cart cannot be null.");
+    }
+    
+    try {
+      Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+      
+      List<Integer> accIds = (new DatabaseSelectHelper()).getUserAccounts(userId);
+      
+      boolean hasId = false;
+      for (int i = 0; i < accIds.size(); i++) {
+        if (accIds.get(i).intValue() == accountId) {
+          hasId = true;
+          break;
+        }
+      }
+      
+      if (!hasId) {
+        connection.close();
+        throw new DatabaseInsertHelperException("The user must have the given account ID.");
+      }
+      
+      boolean cartStored = false;
+      try {
+        if ((new DatabaseSelectHelper()).getAccountDetails(accountId).size() > 0) {
+          cartStored = true;
+        }
+      } catch (Exception e) {
+        // The user doesn't already have a cart stored, continue.
+      }
+      
+      if (cartStored) {
+        connection.close();
+        throw new DatabaseInsertHelperException("This user already has a stored cart.");
+      }
+      
+      List<Item> items = cart.getItems();
+      
+      for (int i = 0; i < items.size(); i++) {
+        Item item = items.get(i);
+        if (cart.getItemQuantity(item) > 0) {
+          DatabaseInserter.insertAccountLine(accountId, item.getId(), 
+                                               cart.getItemQuantity(item), connection);
+        }
+      }
+    } catch (Exception e) {
+      throw new DatabaseInsertHelperException(e.getMessage());
+    }
+  }
+
+  /*
+   * Private helper methods
+   */
+
+  private static ResultSet getRoles(Connection connection) throws SQLException {
+    Statement statement = connection.createStatement();
+    ResultSet results = statement.executeQuery("SELECT * FROM ROLES;");
+    return results;
+  }
+
+  private static ResultSet getUsersByRole(int roleId, Connection connection) throws SQLException {
+    String sql = "SELECT USERID FROM USERROLE WHERE ROLEID = ?";
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setInt(1, roleId);
+    return preparedStatement.executeQuery();
+  }
+
+  private static ResultSet getUserDetails(int userId, Connection connection) throws SQLException {
+    String sql = "SELECT * FROM USERS WHERE ID = ?";
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setInt(1, userId);
+    return preparedStatement.executeQuery();
+  }
+
+  private static ResultSet getItem(int itemId, Connection connection) throws SQLException {
+    String sql = "SELECT * FROM ITEMS WHERE ID = ?;";
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setInt(1, itemId);
+    return preparedStatement.executeQuery();
+  }
+
+  private static ResultSet getSaleById(int saleId, Connection connection) throws SQLException {
+    String sql = "SELECT * FROM SALES WHERE ID = ?;";
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setInt(1, saleId);
+    return preparedStatement.executeQuery();
+  }
+
+  private static ResultSet getAccountId(int accountId, Connection connection) throws SQLException {
+    String sql = "SELECT USERID FROM ACCOUNT WHERE ID = ?";
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setInt(1, accountId);
+    return preparedStatement.executeQuery();
+  }
+  
+  private int insertUser(String name, int age, String address,
+      Connection connection) {
+    String sql = "INSERT INTO USERS(NAME, AGE, ADDRESS) VALUES(?,?,?);";
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql, 
+          Statement.RETURN_GENERATED_KEYS);
+      preparedStatement.setString(1, name);
+      preparedStatement.setInt(2, age);
+      preparedStatement.setString(3, address);
+      int id = preparedStatement.executeUpdate();
+      if (id > 0) {
+        ResultSet uniqueKey = preparedStatement.getGeneratedKeys();
+        if (uniqueKey.next()) {
+          int returnValue = uniqueKey.getInt(1);
+          uniqueKey.close();
+          preparedStatement.close();
+          return returnValue;
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return -1;
+  }
+  
+  private boolean insertHashedPassword(String password, int userId, Connection connection) {
+    String sql = "INSERT INTO USERPW(USERID, PASSWORD) VALUES(?,?);";
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setInt(1, userId);
+      preparedStatement.setString(2, password);
+      preparedStatement.executeUpdate();
+      preparedStatement.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+}

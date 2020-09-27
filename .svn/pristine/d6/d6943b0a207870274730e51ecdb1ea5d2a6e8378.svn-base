@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Testing Android Studio</string>
+    <string name="admin_id">Admin ID</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="id">Login ID</string>
+    <string name="next">Next</string>
+    <string name="Store">Store</string>
+    <string name="shopping_cart">Shopping Cart</string>
+    <string name="Checkout">Checkout</string>
+    <string name="fishing_rod">Fishing Rod</string>
+    <string name="hockey_stick">Hockey Stick</string>
+    <string name="skates">Skates</string>
+    <string name="running_shoes">Running Shoes</string>
+    <string name="protein_bar">Protein Bar</string>
+    <string name="purchase">Purchase</string>
+    <string name="total">Subtotal</string>
+    <string name="total_with_tax">Subtotal with Tax</string>
+    <string name="total_items">Total Items</string>
+    <string name="fishing_rod_purchase">Fishing Rod\n$12.00\nx1</string>
+    <string name="hockey_stick_purchase">Hockey Stick\n$12.00\nx1</string>
+    <string name="skates_purchase">Skates\n$12.00\nx1</string>
+    <string name="running_shoes_purchase">Running Shoes\n$12.00\nx1</string>
+    <string name="protein_bar_purchase">Protein Bar\n$12.00\nx1</string>
+    <string name="title_activity_main2">Main2Activity</string>
+</resources>

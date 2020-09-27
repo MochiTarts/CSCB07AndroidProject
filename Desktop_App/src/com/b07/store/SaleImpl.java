@@ -1,0 +1,66 @@
+package com.b07.store;
+
+import com.b07.inventory.Item;
+import com.b07.users.User;
+import java.math.BigDecimal;
+import java.util.HashMap;
+
+public class SaleImpl implements Sale {
+
+  /**
+   * Generated serial id for Sales.
+   */
+  private static final long serialVersionUID = 750404648657929899L;
+  private int id;
+  private User user;
+  private BigDecimal totalprice;
+  private HashMap<Item, Integer> itemMap;
+
+  @Override
+  public int getId() {
+    // TODO Auto-generated method stub
+    return this.id;
+  }
+
+  @Override
+  public void setId(int id) {
+    // TODO Auto-generated method stub
+    this.id = id;
+  }
+
+  @Override
+  public User getUser() {
+    // TODO Auto-generated method stub
+    return this.user;
+  }
+
+  @Override
+  public void setUser(User user) {
+    // TODO Auto-generated method stub
+    this.user = user;
+  }
+
+  @Override
+  public BigDecimal getTotalPrice() {
+    // TODO Auto-generated method stub
+    return this.totalprice;
+  }
+
+  @Override
+  public void setTotalPrice(BigDecimal price) {
+    // TODO Auto-generated method stub
+    this.totalprice = price;
+  }
+
+  @Override
+  public HashMap<Item, Integer> getItemMap() {
+    // TODO Auto-generated method stub
+    return this.itemMap;
+  }
+
+  @Override
+  public void setItemMap(HashMap<Item, Integer> itemMap) {
+    // TODO Auto-generated method stub
+    this.itemMap = itemMap;
+  }
+}

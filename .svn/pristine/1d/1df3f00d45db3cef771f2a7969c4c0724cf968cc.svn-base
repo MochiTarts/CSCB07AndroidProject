@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary1">#008577</color>
+    <color name="colorPrimaryDark1">#00574B</color>
+    <color name="colorAccent1">#D81B60</color>
+    <color name="login_background">#98FB98</color>
+    <color name="newlogin_background">#fff</color>
+    <color name="light_text">#fff</color>
+    <color name="dark_text">#444</color>
+    <color name="medium_background">#aaa</color>
+    <color name="light_background">#eee</color>
+
+    <!-- Vanessa's colours-->
+    <color name="colorPrimary">#333333</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#333333</color>
+
+    <color name ="black">#000000</color>
+    <color name ="white">#ffffff</color>
+    <color name ="Grey">#333333</color>
+
+    <color name ="Lime">#aed581</color>
+    <color name ="Yellow">#fff176</color>
+    <color name ="LightGrey">#C7C7C7</color>
+</resources>

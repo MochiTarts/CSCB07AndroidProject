@@ -1,0 +1,98 @@
+package com.example.salesapplication;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.media.Image;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.b07.store.ShoppingCart;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.w3c.dom.Text;
+
+import java.math.BigDecimal;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class ShoppingCartActivity extends AppCompatActivity {
+
+    BigDecimal currentSubTotal = new BigDecimal(0);
+    private ShoppingCartObject cart = com.example.salesapplication.ShoppingCartObject.getInstance();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.user_cart);
+
+        TextView total = findViewById(R.id.total_items);
+        total.setText(getResources().getString(R.string.total_items) + ": " + cart.getTotal_items());
+
+        TextView subtotal = findViewById(R.id.subtotal);
+        currentSubTotal =
+                new BigDecimal(12).multiply(new BigDecimal(this.getIntent().getExtras().getInt(
+                        "total_items")));
+        subtotal.setText("$" + currentSubTotal.setScale(2, BigDecimal.ROUND_HALF_EVEN));
+
+        TextView fishingRodTotal = findViewById(R.id.fishing_rod_name);
+        fishingRodTotal.setText(getResources().getString(R.string.fishing_rod_purchase) + "\n" +
+                "x" + cart.getTotal_items());
+        ImageButton addFishingRod = findViewById(R.id.add_fishing_rod);
+        addFishingRod.setOnClickListener(new ShoppingCartController(this));
+        ImageButton removeFishingRod = findViewById(R.id.remove_fishing_rod);
+        removeFishingRod.setOnClickListener(new ShoppingCartController(this));
+
+        TextView hockeyStickRodTotal = findViewById(R.id.hockey_stick_name);
+        hockeyStickRodTotal.setText(getResources().getString(R.string.hockey_stick_purchase) + "\n" +
+                "x" + cart.getTotal_items());
+        ImageButton addHockeyStick = findViewById(R.id.add_hockey_stick);
+        addHockeyStick.setOnClickListener(new ShoppingCartController(this));
+        ImageButton removeHockeyStick = findViewById(R.id.remove_hockey_stick);
+        removeHockeyStick.setOnClickListener(new ShoppingCartController(this));
+
+        TextView skatesTotal = findViewById(R.id.skates_name);
+        skatesTotal.setText(getResources().getString(R.string.skates_purchase) + "\n" +
+                "x" + cart.getTotal_items());
+        ImageButton addSkates = findViewById(R.id.add_skates);
+        addSkates.setOnClickListener(new ShoppingCartController(this));
+        ImageButton removeSkates = findViewById(R.id.remove_skates);
+        removeSkates.setOnClickListener(new ShoppingCartController(this));
+
+        TextView runningShoesTotal = findViewById(R.id.running_shoes_name);
+        runningShoesTotal.setText(getResources().getString(R.string.running_shoes_purchase) + "\n" +
+                "x" + cart.getTotal_items());
+        ImageButton addRunningShoes = findViewById(R.id.add_running_shoes);
+        addRunningShoes.setOnClickListener(new ShoppingCartController(this));
+        ImageButton removeRunningShoes = findViewById(R.id.remove_running_shoes);
+        removeRunningShoes.setOnClickListener(new ShoppingCartController(this));
+
+        TextView proteinBarTotal = findViewById(R.id.protein_bar_name);
+        proteinBarTotal.setText(getResources().getString(R.string.protein_bar_purchase) + "\n" +
+                "x" + cart.getTotal_items());
+        ImageButton addProteinBar = findViewById(R.id.add_protein_bar);
+        addProteinBar.setOnClickListener(new ShoppingCartController(this));
+        ImageButton removeProteinBar = findViewById(R.id.remove_protein_bar);
+        removeProteinBar.setOnClickListener(new ShoppingCartController(this));
+
+        Button checkout = findViewById(R.id.checkout);
+        checkout.setOnClickListener(new CheckOutController(this));
+
+        ImageView menu = findViewById(R.id.menu);
+        menu.setOnClickListener(new MenuController(ShoppingCartActivity.this));
+
+        ImageButton close = findViewById(R.id.close_menu);
+        close.setOnClickListener(new MenuController(ShoppingCartActivity.this));
+
+        Button logOut = findViewById(R.id.log_out);
+        logOut.setOnClickListener(new LogOutController(ShoppingCartActivity.this));
+
+    }
+
+}

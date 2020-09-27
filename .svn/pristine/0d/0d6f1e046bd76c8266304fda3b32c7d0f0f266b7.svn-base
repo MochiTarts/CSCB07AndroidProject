@@ -1,0 +1,31 @@
+package com.example.salesapplication;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class CheckOut extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.user_checkout);
+
+        Button purchase = findViewById(R.id.purchase);
+
+        ImageView menu = findViewById(R.id.menu);
+        menu.setOnClickListener(new MenuController(CheckOut.this));
+
+        ImageButton close = findViewById(R.id.close_menu);
+        close.setOnClickListener(new MenuController(CheckOut.this));
+
+        Button logOut = findViewById(R.id.log_out);
+        logOut.setOnClickListener(new LogOutController(CheckOut.this));
+
+    }
+
+}
